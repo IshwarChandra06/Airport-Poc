@@ -22,7 +22,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.eikona.tech.service.MyUserDetailsService;
 
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -50,7 +49,7 @@ public class SecurityConfig {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception{
-			http.authorizeRequests().antMatchers(HttpMethod.POST, "/LAPI/**" ,"/Subscribe/**","/").permitAll();
+			http.authorizeRequests().antMatchers(HttpMethod.POST, "/LAPI/**" ,"/Subscribe/**","/corsight/**").permitAll();
 			http.antMatcher("/rest/**")
 			.cors()
            
@@ -117,13 +116,13 @@ public class SecurityConfig {
 			 .csrf().disable()
 			 .authorizeRequests()
               			
-			 .antMatchers(HttpMethod.POST, "/LAPI/**" ,"/Subscribe/**","/").permitAll()
+			 .antMatchers(HttpMethod.POST, "/LAPI/**" ,"/Subscribe/**","/corsight/**").permitAll()
 			 .antMatchers("/resources/**", "/webjars/**","/assets/**","/api/**").permitAll()
 			 .anyRequest().authenticated()
 		    
 			 .and()
 			 .formLogin().loginPage("/login")
-			 .defaultSuccessUrl("/")
+			 .defaultSuccessUrl("/transaction")
 			 .failureUrl("/login?error").permitAll()
 		     
 			 .and()

@@ -8,8 +8,7 @@ public class CorsightDeviceConstants {
 	//api
 	public static final String USER_API_LOGIN= "/auth/login/";
 	
-	public static final String CAMERA_API_SYNC="/cameras/";
-	public static final String CAMERA_API_GET="/cameras/";
+	public static final String CAMERA_API="/cameras/";
 	public static final String CAMERAS_API_ANALYSIS = "/cameras/analysis/";
 	
 	public static final String POI_API_DELETE_PERSON="/poi_db/poi/remove/";
@@ -17,7 +16,7 @@ public class CorsightDeviceConstants {
 	public static final String POI_API_GET = "/poi_db/poi/get/";
 	public static final String POI_API_SYNC= "/poi_db/poi/";
 	public static final String POI_API_SYNC_AFTER_ID= "/poi_db/poi/?limit=300&after_id=";
-	public static final String POI_API_SEARCH_PERSON= "/poi_db/poi/search/";
+	public static final String POI_API_SEARCH_PERSON= "/poi_db/poi/name_search/";
 	
 	public static final String HISTORY_API_SYNC="/history/?limit=4";
 	public static final String HISTORY_API_SYNC_AFTER_ID="/history/?limit=4&after_id=";
@@ -67,6 +66,7 @@ public class CorsightDeviceConstants {
 	public static final String FROM="from";
 	public static final String TILL="till";
 	public static final String WATCHLISTS="watchlists";
+	public static final String POI_WATCHLISTS="poi_watchlists";
 	public static final String UTC_TIME_STARTED="utc_time_started";
 	public static final String EVENTS_URL = "events_url";
 	public static final String EVENTS_OUTPUTS = "events_outputs";
@@ -83,12 +83,19 @@ public class CorsightDeviceConstants {
 	public static final String MODE = "mode";
 	public static final String VIDEO =  "video";
 	public static final String CONFIG = "config";
+	public static final String CAPTURE_CONFIG = "capture_config";
 	public static final String DESCRIPTION = "description";
 	public static final String MIN_DETECTION_WIDTH = "min_detection_width";
 	public static final String DISPLAY_RTSP_ADDRESS = "display_rtsp_address";
 	
 	public static final String EMP_NOT_ADDED_TO_WATCHLIST = "Error:Employee not added to watchlist.";
 	public static final String EMP_NOT_REMOVE_FROM_WATCHLIST = "Error:Employee is not removed from watchlist.";
+	public static final String FORCE = "force";
+	public static final String SAVE_CROP ="save_crop";
+	public static final String IMAGE_PAYLOAD ="image_payload";
+	public static final String FACE = "face";
+	public static final String GENDER_OUTCOME = "gender_outcome";
+	public static final String AGE_OUTCOME = "age_group_outcome";
 
 	
 	

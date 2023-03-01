@@ -71,28 +71,11 @@
 						 	<label ><b>Add Filter:</b></label>
 					        <select id="people" name="people" multiple>
 								<option value="date" >Date</option>
-								<option value="employeeId" >Employee Id</option>
-								<option value="deviceEmpId" >Device Emp Id</option>
-								<option value="employeeName" >Employee Name</option>
 								<option value="device" >Device</option>
-								<option value="department" >Department</option>
-								<option value="designation" >Designation</option>
-								<option value="company" >Company</option>
 					        </select>
 						</div>
 					</div>
 					<div class="col-sm-6 col-md-1" id="hide-search" style="display: none;"></div>
-				</div>
-				<div style="display:none">
-					<input type="hidden" id="orginalByStartDate">
-					<input type="hidden" id="orginalByEndDate">
-					<input type="hidden" id="orginalByEmployeeId">
-					<input type="hidden" id="orginalByEmployeeCode">
-					<input type="hidden" id="orginalByEmployeeName">
-					<input type="hidden" id="orginalByDevice">
-					<input type="hidden" id="orginalByDepartment">
-					<input type="hidden" id="orginalByDesignation">
-					<input type="hidden" id="orginalByCompany">
 				</div>
 				<div id= "input-field" class="row">
 				</div>
@@ -240,18 +223,9 @@
 			$(document).on('click', '.sortByField', function(e) {
 				var value = $(this).val();
 				var valueList = value.split("-");
-				
-                var employeeId= document.getElementById('orginalByEmployeeId').value;
-                var employeeCode= document.getElementById('orginalByEmployeeCode').value;
-                var employeeName = document.getElementById('orginalByEmployeeName').value;
-                var device = document.getElementById('orginalByDevice').value;
-                var department = document.getElementById('orginalByDepartment').value;
-                var designation = document.getElementById('orginalByDesignation').value;
-                var company = document.getElementById('orginalByCompany').value;
-
                 var sDate = "";
                 
-				ajaxCall(sDate, sDate, employeeId, employeeCode, employeeName, device, department, designation,company, "sortByField", "previousPage", valueList[0],valueList[1],valueList[2]);
+				ajaxCall(sDate, sDate, "", "sortByField", "previousPage", valueList[0],valueList[1],valueList[2]);
 				
         	})
         	//end sort 
@@ -261,32 +235,18 @@
         	})
 			
 			function defautlSearch(){
-                var employeeId= document.getElementById('orginalByEmployeeId').value;
-                var employeeCode= document.getElementById('orginalByEmployeeCode').value;
-                var employeeName = document.getElementById('orginalByEmployeeName').value;
-                var device = document.getElementById('orginalByDevice').value;
-                var department = document.getElementById('orginalByDepartment').value;
-                var designation = document.getElementById('orginalByDesignation').value;
-				var company = document.getElementById('orginalByCompany').value;
-                var sDate = "";
+                 var sDate = "";
                 
-				ajaxCall(sDate, sDate, employeeId, employeeCode, employeeName, device, department, designation,company, "sortByField", "previousPage", 1,"id","desc");
+				ajaxCall(sDate, sDate, "", "sortByField", "previousPage", 1,"id","desc");
 			}
         	
 			$(document).on('click', '.previousPage', function(e) {
 				var value = $(this).val();
 				var valueList = value.split("-");
 				
-                var employeeId= document.getElementById('orginalByEmployeeId').value;
-                var employeeCode= document.getElementById('orginalByEmployeeCode').value;
-                var employeeName = document.getElementById('orginalByEmployeeName').value;
-                var device = document.getElementById('orginalByDevice').value;
-                var department = document.getElementById('orginalByDepartment').value;
-                var designation = document.getElementById('orginalByDesignation').value;
-                var company = document.getElementById('orginalByCompany').value;
                 var sDate = "";
-				
-				ajaxCall(sDate, sDate, employeeId, employeeCode, employeeName, device, department, designation,company, "sortByField", "previousPage", valueList[0],valueList[1],valueList[2]);
+                
+				ajaxCall(sDate, sDate, "", "sortByField", "previousPage", valueList[0],valueList[1],valueList[2]);
         	})
 			
 			//start search and sort field
@@ -297,16 +257,11 @@
 				
 				var sDate = document.getElementById('startDate').value;
 	            var eDate = document.getElementById('endDate').value;
-                var employeeId= document.getElementById('employeeId').value;
-                var employeeCode= document.getElementById('deviceEmpId').value;
-                var employeeName = document.getElementById('employeeName').value;
                 var device = document.getElementById('device').value;
-                var department = document.getElementById('department').value;
-                var designation = document.getElementById('designation').value;
-				var company = document.getElementById('company').value;
+                
 				checkDate();
 				uncheckedRemove();
-                ajaxCall(sDate, eDate, employeeId, employeeCode, employeeName, device, department, designation,company, "sortBySearchField", "nextPage", valueList[0], valueList[1], valueList[2]);
+                ajaxCall(sDate, eDate, device, "sortBySearchField", "nextPage", valueList[0], valueList[1], valueList[2]);
 				
         	})
         	//end search and sort field
@@ -318,16 +273,11 @@
 				
 				var sDate = document.getElementById('startDate').value;
 	            var eDate = document.getElementById('endDate').value;
-                var employeeId= document.getElementById('employeeId').value;
-                var employeeCode= document.getElementById('deviceEmpId').value;
-                var employeeName = document.getElementById('employeeName').value;
                 var device = document.getElementById('device').value;
-                var department = document.getElementById('department').value;
-                var designation = document.getElementById('designation').value;
-				var company = document.getElementById('company').value;
+                
 				checkDate();
 				uncheckedRemove();
-                ajaxCall(sDate, eDate, employeeId, employeeCode, employeeName, device, department, designation,company, "sortBySearchField", "nextPage", valueList[0],valueList[1],valueList[2]);
+                ajaxCall(sDate, eDate, device, "sortBySearchField", "nextPage", valueList[0],valueList[1],valueList[2]);
         	})
 			
         	$(document).on('click', '.searchButtonField', function(e) {
@@ -339,17 +289,13 @@
         		else{
         			uncheckedAppend();
 					var sDate = document.getElementById('startDate').value;
-		            var eDate = document.getElementById('endDate').value;
-	                var employeeId= document.getElementById('employeeId').value;
-	                var employeeCode= document.getElementById('deviceEmpId').value;
-	                var employeeName = document.getElementById('employeeName').value;
-	                var device = document.getElementById('device').value;
-	                var department = document.getElementById('department').value;
-	                var designation = document.getElementById('designation').value;
-					var company = document.getElementById('company').value;
-					checkDate();
-					uncheckedRemove();
-	                ajaxCall(sDate, eDate, employeeId, employeeCode, employeeName, device, department, designation,company, "sortBySearchField", "nextPage", 1, "id", "desc");
+	            var eDate = document.getElementById('endDate').value;
+                var device = document.getElementById('device').value;
+                
+				checkDate();
+				uncheckedRemove();
+                ajaxCall(sDate, eDate, device, "sortBySearchField", "nextPage", 1, "id", "desc");
+        		
         		}
         	})
         	
@@ -373,17 +319,11 @@
 				}
 		}
 	        	
-	        function ajaxCall(sDate, eDate, employeeId, employeeCode, employeeName, device, department, designation,company, headFlag, pageFlag, pageno, sortField,sortDir) {
+	        function ajaxCall(sDate, eDate, device, headFlag, pageFlag, pageno, sortField,sortDir) {
 				var data = {
 	           		"sDate":sDate,
 	           		"eDate":eDate,
-	           		"employeeId":employeeId,
-	           		"employeeCode":employeeCode,
-	           		"employeeName":employeeName,
 	           		"device":device,
-	           		"department":department,
-	           		"designation":designation,
-	           		"company":company,
 	           		"pageno":pageno,
 	           		"sortField":sortField,
 	           		"sortDir":sortDir
@@ -415,13 +355,8 @@
 					table_header = 
 					'<td><b>Date</b></td>'+
 					'<td><b>Time</b></td>'+
-					'<td><b>Employee Id </b></td>'+
-					'<td><b>Device Emp Id</b></td>'+
-					'<td><b>Name</b></td>'+
-					'<td><b>Company</b></td>'+
-					'<td><b>Department</b></td>'+
-					'<td><b>Designation</b></td>'+
-					'<td><b>Grade</b></td>'+
+					'<td><b>Age</b></td>'+
+					'<td><b>Gender</b></td>'+
 					'<td><b>Device</b></td>'+
 					'<td><b>Image</b></td>';
 						
@@ -431,21 +366,11 @@
 		   				'<button  value="'+result.page_number+'-punchDateStr-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Date</b></button>'+
 		   			'</th><th>'+		
 						'<button  value="'+result.page_number+'-punchTimeStr-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Time</b></button>'+	
+					'</th><th>'+		
+						'<button  value="'+result.page_number+'-age-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Age</b></button>'+	
+					'</th><th>'+		
+						'<button  value="'+result.page_number+'-gender-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Gender</b></button>'+	
 					'</th><th>'+
-		   				'<button  value="'+result.page_number+'-empId-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Employee Id</b></button>'+
-		   			'</th><th>'+
-		   				'<button  value="'+result.page_number+'-employeeCode-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Device Emp Id</b></button>'+
-		   			'</th><th>'+
-		   				'<button  value="'+result.page_number+'-name-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Name</b></button>'+
-		   			'</th><th>'+
-		   				'<button  value="'+result.page_number+'-company-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Company</b></button>'+
-		   			'</th><th>'+
-		   				'<button  value="'+result.page_number+'-department-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Department</b></button>'+
-		   			'</th><th>'+
-		   				'<button  value="'+result.page_number+'-designation-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Designation</b></button>'+
-		   			'</th><th>'+
-		   				'<button  value="'+result.page_number+'-grade-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Grade</b></button>'+
-		   			'</th><th>'+
 		   				'<button  value="'+result.page_number+'-deviceName-'+result.sortDir+'" type="button" class="btn btn-link '+flag+'"><b>Device</b></button>'+
 		   			'</th><th><b>Image</b></th>';
 				}
@@ -469,36 +394,18 @@
                 	 }else{
                 		 table_data +='<td>' +' '+ '</td>' ;
                 	 }
-           			
-           			table_data += (null == customer.empId)? '<td>' +' '+ '</td>' :'<td>' + customer.empId + '</td>';
-               	  	table_data += (null == customer.employeeCode)? '<td>' +' '+ '</td>' :'<td>' + customer.employeeCode + '</td>';
-           			
-           			if(null != customer.name){
-           				table_data += '<td>' + customer.name + '</td>' ;
-           			}else{
-           				table_data +='<td>' +' '+ '</td>' ;
-           			}
-           			if(null != customer.company){
-           				table_data += '<td>' + customer.company + '</td>' ;
-           			}else{
-           				table_data +='<td>' +' '+ '</td>' ;
-           			}
-           			if(null != customer.department){
-           				table_data += '<td>' + customer.department + '</td>' ;
-           			}else{
-           				table_data +='<td>' +' '+ '</td>' ;
-           			}
-               	   
-           			if(null != customer.designation){
-           				table_data += '<td>' + customer.designation + '</td>' ;
-           			}else{
-           				table_data +='<td>' +' '+ '</td>' ;
-           			}
-           			if(null != customer.grade){
-           				table_data += '<td>' + customer.grade + '</td>' ;
-           			}else{
-           				table_data +='<td>' +' '+ '</td>' ;
-           			}
+                	 
+                	 if(null != customer.age){
+           				table_data += '<td>' + customer.age + '</td>' ;
+                	 }else{
+                		 table_data +='<td>' +' '+ '</td>' ;
+                	 }
+                	 
+                	 if(null != customer.gender){
+           				table_data += '<td>' + customer.gender + '</td>' ;
+                	 }else{
+                		 table_data +='<td>' +' '+ '</td>' ;
+                	 }
                	   
            			if(null != customer.deviceName){
            				table_data += '<td>' + customer.deviceName + '</td>' ;

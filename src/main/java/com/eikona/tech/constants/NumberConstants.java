@@ -1,6 +1,5 @@
 package com.eikona.tech.constants;
 
-
 public class NumberConstants {
 	
 	public static final Integer ZERO=0;
@@ -46,9 +45,17 @@ public class NumberConstants {
 	
 	public static final Long LONG_ZERO =0l;
 	public static final Long LONG_ONE = 1l;
+	
+	public static final float FLOAT_ZERO =0f;
+	public static final float FLOAT_ONE =1f;
+	public static final float FLOAT_HUNDRED = 100f;
+	public static final float FLOAT_POINT_FIVE = 0.5f;
+	
 	public static final String STRING_ZERO ="0";
 	public static final String FIVE_HUNDRED_EIGHTY_SEVEN = "587";
 	public static final Integer THOUSAND_EIGHTY = 1080;
 	public static final Integer NINETEEN_HUNDRED_TWENTY = 1920;
+	public static final Integer EIGHT_THOUSAND_NINTY = 8190;
+	
 	
 }

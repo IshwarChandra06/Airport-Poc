@@ -1,15 +1,9 @@
 package com.eikona.tech.controller;
 
-import java.security.Principal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,79 +14,98 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.eikona.tech.dto.PaginationDto;
 import com.eikona.tech.entity.DailyReport;
-import com.eikona.tech.entity.User;
-import com.eikona.tech.repository.UserRepository;
-import com.eikona.tech.service.DailyAttendanceService;
-import com.eikona.tech.util.ExportDailyReports;
+import com.eikona.tech.service.impl.DailyAttendanceServiceImpl;
+import com.eikona.tech.util.ImageProcessingUtil;
 
 @Controller
 public class DailyReportController {
 
 	@Autowired
-	private DailyAttendanceService dailyAttendanceService;
-
-	@Autowired
-	private UserRepository userRepository;
+	private DailyAttendanceServiceImpl dailyAttendanceService;
 	
 	@Autowired
-	private ExportDailyReports exportDailyReports;
-	
-	@Value("${dailyreport.autogenerate.enabled}")
-	private String enableGenerate;
+	private ImageProcessingUtil imageProcessingUtil;
 	
 	@GetMapping("/daily-reports")
+	@PreAuthorize("hasAuthority('dailyreport_view')")
 	public String viewHomePage(Model model) {
-		model.addAttribute("enableGenerate", enableGenerate);
 		return "reports/daily_report";
 	}
 
-	@RequestMapping(value = "/generate/daily-reports", method = RequestMethod.GET)
-	public String generateDailyReportsPage(Model model, Principal principal) {
-		
-		User userObj = userRepository.findByUserNameAndIsDeletedFalse(principal.getName());
-		String orgName = userObj.getOrganization().getName();
-		model.addAttribute("organizationList", orgName);
-		return "reports/generate_daily_report";
+	
+	@GetMapping("/stay-in-hour/exception")
+	@PreAuthorize("hasAuthority('dailyreport_view')")
+	public String stayInHourException(Model model) {
+		return "reports/stay_in_hour_exception";
 	}
+	
+	
+//	@RequestMapping(value = "/generate/daily-reports", method = RequestMethod.GET)
+//	public String generateDailyReportsPage(Model model, Principal principal) {
+//		
+//		User userObj = userRepository.findByUserNameAndIsDeletedFalse(principal.getName());
+//		String orgName = userObj.getOrganization().getName();
+//		model.addAttribute("organizationList", orgName);
+//		return "reports/generate_daily_report";
+//	}
 	
 	@RequestMapping(value = "/api/search/daily-reports", method = RequestMethod.GET)
 	@PreAuthorize("hasAuthority('dailyreport_view')")
-	public @ResponseBody PaginationDto<DailyReport> search(String sDate,String eDate, String employeeId, String employeeName, String department, String designation,
-			String company,String status,String shift,int pageno, String sortField, String sortDir, Principal principal) {
+	public @ResponseBody PaginationDto<DailyReport> search(String sDate,String eDate,int pageno, String sortField, String sortDir) {
 		
-		User userObj = userRepository.findByUserNameAndIsDeletedFalse(principal.getName());
-		String orgName = (null == userObj.getOrganization()? null : userObj.getOrganization().getName());
-		PaginationDto<DailyReport> dtoList = dailyAttendanceService.searchByField(sDate, eDate, employeeId, employeeName, department, designation,company,status,shift, pageno, sortField, sortDir, orgName);
+		PaginationDto<DailyReport> dtoList = dailyAttendanceService.searchByField(sDate, eDate, pageno, sortField, sortDir);
+		setTransactionImage(dtoList);
 		
 		return dtoList;
 	}
 	
-	@RequestMapping(value = "/get/data-by-organization", method = RequestMethod.GET)
-	public @ResponseBody List<DailyReport> generateDailyReports(String sDate, String eDate, Principal principal) {
+	@RequestMapping(value = "/api/search/stay-in-hour/exception", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('dailyreport_view')")
+	public @ResponseBody PaginationDto<DailyReport> searchStayInHourException(String sDate,String eDate,int pageno, String sortField, String sortDir) {
 		
-		User userObj = userRepository.findByUserNameAndIsDeletedFalse(principal.getName());
-		String orgName = (null == userObj.getOrganization()? null : userObj.getOrganization().getName());
+		PaginationDto<DailyReport> dtoList = dailyAttendanceService.searchStayInHourException(sDate, eDate, pageno, sortField, sortDir);
+		setTransactionImage(dtoList);
 		
-		return dailyAttendanceService.generateDailyAttendance(sDate, eDate, orgName);
-		
+		return dtoList;
 	}
 	
-	@RequestMapping(value="/api/daily-attendance/export-to-file",method = RequestMethod.GET)
-	@PreAuthorize("hasAuthority('dailyreport_export')")
-	public void exportToFile(HttpServletResponse response,String sDate, String eDate, String employeeName,String employeeId, 
-			String designation, String department,String company,String status,String shift, String flag, Principal principal) {
-		User userObj = userRepository.findByUserNameAndIsDeletedFalse(principal.getName());
-		String orgName = (null == userObj.getOrganization()? null : userObj.getOrganization().getName());
-		 response.setContentType("application/octet-stream");
-			DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
-			String currentDateTime = dateFormat.format(new Date());
-			String headerKey = "Content-Disposition";
-			String headerValue = "attachment; filename=Daily_Report" + currentDateTime + "."+flag;
-			response.setHeader(headerKey, headerValue);
-		try {
-			exportDailyReports.fileExportBySearchValue(response,sDate, eDate, employeeName,employeeId, designation, department,company, status,shift, flag, orgName );
-		} catch (Exception  e) {
-			e.printStackTrace();
+//	@RequestMapping(value = "/get/data-by-organization", method = RequestMethod.GET)
+//	public @ResponseBody List<DailyReport> generateDailyReports(String sDate, String eDate, Principal principal) {
+//		
+//		User userObj = userRepository.findByUserNameAndIsDeletedFalse(principal.getName());
+//		String orgName = (null == userObj.getOrganization()? null : userObj.getOrganization().getName());
+//		
+//		return dailyAttendanceService.generateDailyAttendance(sDate, eDate, orgName);
+//		
+//	}
+	
+//	@RequestMapping(value="/api/daily-attendance/export-to-file",method = RequestMethod.GET)
+//	@PreAuthorize("hasAuthority('dailyreport_export')")
+//	public void exportToFile(HttpServletResponse response, Long id, String sDate, String eDate, String employeeName,String employeeId, 
+//			String designation, String department,String company,String status,String shift, String flag, Principal principal) {
+//		User userObj = userRepository.findByUserNameAndIsDeletedFalse(principal.getName());
+//		String orgName = (null == userObj.getOrganization()? null : userObj.getOrganization().getName());
+//		 response.setContentType("application/octet-stream");
+//			DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+//			String currentDateTime = dateFormat.format(new Date());
+//			String headerKey = "Content-Disposition";
+//			String headerValue = "attachment; filename=Daily_Report" + currentDateTime + "."+flag;
+//			response.setHeader(headerKey, headerValue);
+//		try {
+//			exportDailyReports.fileExportBySearchValue(response, id, sDate, eDate, employeeName,employeeId, designation, department,company, status,shift, flag, orgName );
+//		} catch (Exception  e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	private void setTransactionImage(PaginationDto<DailyReport> dtoList) {
+		List<DailyReport> dailyList = dtoList.getData();
+		List<DailyReport> dailyReportList = new ArrayList<DailyReport>();
+		for (DailyReport dailyReport : dailyList) {
+			byte[] image = imageProcessingUtil.searchTransactionImage(dailyReport);
+			dailyReport.setCropImageByte(image);
+			dailyReportList.add(dailyReport);
 		}
+		dtoList.setData(dailyReportList);
 	}
 }

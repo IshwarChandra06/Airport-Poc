@@ -1,7 +1,6 @@
 package com.eikona.tech.entity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,13 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
-@Component
-@Entity(name = "et_daily_report")
+@Entity(name = "daily_report")
 public class DailyReport implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,125 +24,57 @@ public class DailyReport implements Serializable {
 	@GenericGenerator(name = "native", strategy = "native")
 	@Column(name = "id")
 	private Long id;
-
-	@Column
-	private String empId;
-
-	@Column
-	@DateTimeFormat(pattern="dd-MM-yyyy")
+	
+	@Column(name = "date")
 	private Date date;
+	
+	@Column(name = "age")
+	private String age;
+	
+	@Column(name = "gender")
+	private String gender;
+	
+	@Column(name = "poi_id")
+	private String poiId;
+	
+	@Column(name = "in_time")
+	private Date inTime;
+	
+	@Column(name = "out_time")
+	private Date outTime;
+	
+	@Column(name = "in_time_str")
+	private String inTimeStr;
+	
+	@Column(name = "out_time_str")
+	private String outTimeStr;
+	
+	@Column(name = "stay_in_time")
+	private String stayInTime;
+	
+	@Column(name = "stay_in_hour")
+	private Long stayInHour;
+	
+	@Column(name = "in_mask")
+	private String inMask;
 
+	@Column(name = "out_mask")
+	private String outMask;
+	
+	@Column(name = "in_location")
+	private String inLocation;
+
+	@Column(name = "out_location")
+	private String outLocation;
+	
+	@Column(name = "missed_out_punch")
+	private String missedOutPunch;
+	
 	@Column
-	private String dateStr;
-
+	private String cropImagePath;
+	
 	@Column
-	private String employeeName;
-
-	@Column
-	private String company;
-
-	@Column
-	private String city;
-
-	@Column
-	private String branch;
-
-	@Column
-	private String department;
-
-	@Column
-	private String organization;
-
-	@Column
-	private String designation;
-
-	@Column
-	private String employeeType;
-
-	@Column
-	private String grade;
-
-	@Column
-	private String userType;
-
-	@Column
-	private String shift;
-
-	@Column
-	private String shiftInTime;
-
-	@Column
-	private String shiftOutTime;
-
-	@Column
-	private String empInTime;
-
-	@Column
-	private String empOutTime;
-
-	@Column
-	private String empInTemp;
-
-	@Column
-	private String empOutTemp;
-
-	@Column
-	private Boolean empInMask;
-
-	@Column
-	private Boolean empOutMask;
-
-	@Column
-	private String empInLocation;
-
-	@Column
-	private String empOutLocation;
-
-	@Column
-	private String empInAccessType;
-
-	@Column
-	private String empOutAccessType;
-
-	@Column
-	private Boolean missedOutPunch;
-
-	@Column
-	private String attendanceStatus;
-
-	@Column
-	private String workTime;
-
-	@Column
-	private Long overTime;
-
-	@Column
-	private Long earlyComing;
-
-	@Column
-	private Long lateComing;
-
-	@Column
-	private Long earlyGoing;
-
-	@Column
-	private Long lateGoing;
-
-	public String getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
+	private byte[] cropImageByte;
 
 	public Long getId() {
 		return id;
@@ -151,16 +82,6 @@ public class DailyReport implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	
-
-	public String getEmpId() {
-		return empId;
-	}
-
-	public void setEmpId(String empId) {
-		this.empId = empId;
 	}
 
 	public Date getDate() {
@@ -171,271 +92,132 @@ public class DailyReport implements Serializable {
 		this.date = date;
 	}
 
-	public String getDateStr() {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		return df.format(date);
+	public String getAge() {
+		return age;
 	}
 
-	public void setDateStr(String dateStr) {
-		this.dateStr = dateStr;
+	public void setAge(String age) {
+		this.age = age;
 	}
 
-	public String getEmployeeName() {
-		return employeeName;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public String getCompany() {
-		return company;
+	public String getPoiId() {
+		return poiId;
 	}
 
-	public void setCompany(String company) {
-		this.company = company;
+	public void setPoiId(String poiId) {
+		this.poiId = poiId;
 	}
 
-	public String getCity() {
-		return city;
+	public Date getInTime() {
+		return inTime;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setInTime(Date inTime) {
+		this.inTime = inTime;
 	}
 
-	public String getBranch() {
-		return branch;
+	public Date getOutTime() {
+		return outTime;
 	}
 
-	public void setBranch(String branch) {
-		this.branch = branch;
+	public void setOutTime(Date outTime) {
+		this.outTime = outTime;
 	}
 
-	public String getDepartment() {
-		return department;
+	public String getInTimeStr() {
+		return inTimeStr;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setInTimeStr(String inTimeStr) {
+		this.inTimeStr = inTimeStr;
 	}
 
-	public String getEmployeeType() {
-		return employeeType;
+	public String getOutTimeStr() {
+		return outTimeStr;
 	}
 
-	public void setEmployeeType(String employeeType) {
-		this.employeeType = employeeType;
+	public void setOutTimeStr(String outTimeStr) {
+		this.outTimeStr = outTimeStr;
 	}
 
-	public String getUserType() {
-		return userType;
+	public String getStayInTime() {
+		return stayInTime;
 	}
 
-	public void setUserType(String userType) {
-		this.userType = userType;
+	public void setStayInTime(String stayInTime) {
+		this.stayInTime = stayInTime;
 	}
 
-	public String getShift() {
-		return shift;
+	public Long getStayInHour() {
+		return stayInHour;
 	}
 
-	public void setShift(String shift) {
-		this.shift = shift;
+	public void setStayInHour(Long stayInHour) {
+		this.stayInHour = stayInHour;
 	}
 
-	public String getShiftInTime() {
-		return shiftInTime;
+	public String getInMask() {
+		return inMask;
 	}
 
-	public void setShiftInTime(String shiftInTime) {
-		this.shiftInTime = shiftInTime;
+	public void setInMask(String inMask) {
+		this.inMask = inMask;
 	}
 
-	public String getShiftOutTime() {
-		return shiftOutTime;
+	public String getOutMask() {
+		return outMask;
 	}
 
-	public void setShiftOutTime(String shiftOutTime) {
-		this.shiftOutTime = shiftOutTime;
-	}
-	
-	/*
-	 * private String ShiftOutDate; private String ShiftInDate;
-	 * 
-	 * public String getShiftOutDate() { SimpleDateFormat outputFormat = new
-	 * SimpleDateFormat("HH:mm:ss"); this.ShiftOutDate =
-	 * outputFormat.format(shiftOutTime); return ShiftOutDate; }
-	 * 
-	 * public String getShiftInDate() { SimpleDateFormat outputFormat = new
-	 * SimpleDateFormat("HH:mm:ss"); this.ShiftInDate =
-	 * outputFormat.format(shiftInTime); return ShiftInDate; }
-	 */
-	public String getEmpInTime() {
-		return empInTime;
+	public void setOutMask(String outMask) {
+		this.outMask = outMask;
 	}
 
-	public void setEmpInTime(String empInTime) {
-		this.empInTime = empInTime;
+	public String getInLocation() {
+		return inLocation;
 	}
 
-	public String getEmpOutTime() {
-		return empOutTime;
+	public void setInLocation(String inLocation) {
+		this.inLocation = inLocation;
 	}
 
-	public void setEmpOutTime(String empOutTime) {
-		this.empOutTime = empOutTime;
+	public String getOutLocation() {
+		return outLocation;
 	}
 
-	public String getEmpInTemp() {
-		return empInTemp;
+	public void setOutLocation(String outLocation) {
+		this.outLocation = outLocation;
 	}
 
-	public void setEmpInTemp(String empInTemp) {
-		this.empInTemp = empInTemp;
-	}
-
-	public String getEmpOutTemp() {
-		return empOutTemp;
-	}
-
-	public void setEmpOutTemp(String empOutTemp) {
-		this.empOutTemp = empOutTemp;
-	}
-
-	public Boolean isEmpInMask() {
-		return empInMask;
-	}
-
-	public void setEmpInMask(Boolean empInMask) {
-		this.empInMask = empInMask;
-	}
-
-	public Boolean isEmpOutMask() {
-		return empOutMask;
-	}
-
-	public void setEmpOutMask(Boolean empOutMask) {
-		this.empOutMask = empOutMask;
-	}
-
-	public String getEmpInLocation() {
-		return empInLocation;
-	}
-
-	public void setEmpInLocation(String empInLocation) {
-		this.empInLocation = empInLocation;
-	}
-
-	public String getEmpOutLocation() {
-		return empOutLocation;
-	}
-
-	public void setEmpOutLocation(String empOutLocation) {
-		this.empOutLocation = empOutLocation;
-	}
-
-	public String getEmpInAccessType() {
-		return empInAccessType;
-	}
-
-	public void setEmpInAccessType(String empInAccessType) {
-		this.empInAccessType = empInAccessType;
-	}
-
-	public String getEmpOutAccessType() {
-		return empOutAccessType;
-	}
-
-	public void setEmpOutAccessType(String empOutAccessType) {
-		this.empOutAccessType = empOutAccessType;
-	}
-
-	public Boolean isMissedOutPunch() {
+	public String getMissedOutPunch() {
 		return missedOutPunch;
 	}
 
-	public void setMissedOutPunch(Boolean missedOutPunch) {
+	public void setMissedOutPunch(String missedOutPunch) {
 		this.missedOutPunch = missedOutPunch;
 	}
 
-	public String getAttendanceStatus() {
-		return attendanceStatus;
+	public String getCropImagePath() {
+		return cropImagePath;
 	}
 
-	public void setAttendanceStatus(String attendanceStatus) {
-		this.attendanceStatus = attendanceStatus;
+	public void setCropImagePath(String cropImagePath) {
+		this.cropImagePath = cropImagePath;
 	}
 
-	public String getWorkTime() {
-		return workTime;
+	public byte[] getCropImageByte() {
+		return cropImageByte;
 	}
 
-	public void setWorkTime(String workTime) {
-		this.workTime = workTime;
-	}
-
-	public Long getOverTime() {
-		return overTime;
-	}
-
-	public void setOverTime(Long overTime) {
-		this.overTime = overTime;
-	}
-
-	public Long getEarlyComing() {
-		return earlyComing;
-	}
-
-	public void setEarlyComing(Long earlyComing) {
-		this.earlyComing = earlyComing;
-	}
-
-	public Long getLateComing() {
-		return lateComing;
-	}
-
-	public void setLateComing(Long lateComing) {
-		this.lateComing = lateComing;
-	}
-
-	public Long getEarlyGoing() {
-		return earlyGoing;
-	}
-
-	public void setEarlyGoing(Long earlyGoing) {
-		this.earlyGoing = earlyGoing;
-	}
-
-	public Long getLateGoing() {
-		return lateGoing;
-	}
-
-	public void setLateGoing(Long lateGoing) {
-		this.lateGoing = lateGoing;
-	}
-
-
-	public String getGrade() {
-		return grade;
-	}
-
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
-
-	public Boolean getEmpInMask() {
-		return empInMask;
-	}
-
-	public Boolean getEmpOutMask() {
-		return empOutMask;
-	}
-
-	public Boolean getMissedOutPunch() {
-		return missedOutPunch;
+	public void setCropImageByte(byte[] cropImageByte) {
+		this.cropImageByte = cropImageByte;
 	}
 
 }
-
-

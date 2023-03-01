@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eikona.tech</groupId>
-	<artifactId>microsite-v2.0</artifactId>
+	<artifactId>Airport-Poc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>microsite-v2.0</name>
 	<description>Microsite for Spring Boot</description>

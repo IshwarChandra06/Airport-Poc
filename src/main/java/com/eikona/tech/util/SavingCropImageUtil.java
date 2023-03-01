@@ -5,33 +5,24 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.eikona.tech.constants.ApplicationConstants;
 import com.eikona.tech.constants.DefaultConstants;
-import com.eikona.tech.constants.NumberConstants;
 import com.eikona.tech.entity.FileSystemContent;
 import com.eikona.tech.entity.Transaction;
+import com.eikona.tech.repository.FileContentStore;
 import com.eikona.tech.repository.FileRepository;
-import com.eikona.tech.service.FileContentStore;
-
 @Component
 public class SavingCropImageUtil {
 	
-//	@Autowired
+	@Autowired
 	private FileContentStore contentStore;
 	
-//	@Autowired
+	@Autowired
 	private FileRepository filerepo;
 	
-	
-	public SavingCropImageUtil(FileContentStore contentStore, FileRepository filerepo) {
-		this.contentStore = contentStore;
-		this.filerepo = filerepo;
-	}
-
-
-
 	public String saveCropImages(String base64, Transaction trans) {
 		SimpleDateFormat contentDateFolderformat = new SimpleDateFormat(ApplicationConstants.DATE_FORMAT_OF_INDIA_WITHOUT_DELIMITER);
 		SimpleDateFormat contentImageFileformat = new SimpleDateFormat(ApplicationConstants.DATE_TIME_FORMAT_OF_INDIA_WITHOUT_DELIMITER);
@@ -43,14 +34,7 @@ public class SavingCropImageUtil {
 		fileObj.setContentMimeType(ApplicationConstants.MIME_TYPE_JPG);
 		String dateFolder = contentDateFolderformat.format(trans.getPunchDate());
 		String imageFileDate = contentImageFileformat.format(trans.getPunchDate());
-		String organization="";
-		if(null!=trans.getOrganization())
-		 organization=trans.getOrganization();
-		else
-		 organization="Default";
-		fileObj.setContentPath(fileObj.getContentMimeType().split(ApplicationConstants.DELIMITER_FORWARD_SLASH)[NumberConstants.ZERO] 
-				+ ApplicationConstants.DELIMITER_FORWARD_SLASH +organization+ApplicationConstants.DELIMITER_FORWARD_SLASH + dateFolder 
-				+ ApplicationConstants.DELIMITER_FORWARD_SLASH + imageFileDate + ApplicationConstants.DELIMITER_HYPHEN + trans.getEmployeeCode() + ApplicationConstants.EXTENSION_JPG);
+		fileObj.setContentPath(dateFolder+ ApplicationConstants.DELIMITER_FORWARD_SLASH + imageFileDate + ApplicationConstants.DELIMITER_HYPHEN + trans.getPoiId() + ApplicationConstants.EXTENSION_JPG);
 
 		String path = DefaultConstants.CONTENT_STORE_ROOT_PATH + fileObj.getContentPath();
 		contentStore.setContent(fileObj, inputStream);

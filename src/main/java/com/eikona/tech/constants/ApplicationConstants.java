@@ -8,6 +8,7 @@ public final class ApplicationConstants {
 	public static final String  HEADER_CONTENT_TYPE = "Content-type";
 	public static final String  HEADER_CONTENT_LENGTH ="Content-length";
 	public static final String  APPLICATION_JSON = "application/json";
+	public static final String  X_WWW_FORM_URLENCODED ="application/x-www-form-urlencoded";
 	public static final String  APPLICATION_URL_ENCODED = "application/x-www-form-urlencoded";
 	
 	public static final String  BASIC_AUTH = "Basic ";
@@ -89,6 +90,7 @@ public final class ApplicationConstants {
 	public static final String  DATE_FORMAT_OF_INDIA = "dd-MM-yyyy";
 	public static final String  DATE_FORMAT_OF_INDIA_WITHOUT_DELIMITER = "ddMMyyyy";
 	public static final String  DATE_FORMAT_OF_INDIA_SPLIT_BY_SLASH = "dd/MM/yyyy";
+	public static final String  DATE_TIME_FORMAT_OF_INDIA_SPLIT_BY_SLASH = "dd/MM/yyyy hh:mm:ss aa";
 	public static final String  TIME_FORMAT_24HR = "HH:mm:ss";
 	public static final String  MONTH_DAY_YEAR = "MM/dd/yyyy";
 	public static final String DATE_TIME_FORMAT_OF_INDIA_SPLIT_BY_UNDERSCORE = "dd_MM_yyyy hh_mm_ss";
@@ -120,6 +122,8 @@ public final class ApplicationConstants {
 	public static final String  MIME_TYPE_JPG = "image/jpg";
 	public static final String  MIME_TYPE_TEXT ="text/plain";
 	public static final String TOTAL_PRESENT = "Total Present";
+	public static final String TOTAL_OVERTIME = "Total Overtime (In Hr)";
+	
 	
 	
 	

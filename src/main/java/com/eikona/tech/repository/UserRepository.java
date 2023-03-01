@@ -10,7 +10,6 @@ import com.eikona.tech.entity.User;
 
 @Repository
 public interface UserRepository extends DataTablesRepository<User, Long>{
-	
 	List<User> findAllByIsDeletedFalse();
 	
 	User findByUserNameAndIsDeletedFalse(String name);

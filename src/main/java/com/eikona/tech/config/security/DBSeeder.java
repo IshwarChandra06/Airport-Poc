@@ -43,11 +43,7 @@ public class DBSeeder implements CommandLineRunner {
 			}
 		}
 	private List<Privilege> SeedPrivileges() {
-		Privilege dashboardView = new Privilege("dashboard_view", false);
-		Privilege orgView = new Privilege("organization_view", false);
-		Privilege orgCreate = new Privilege("organization_create", false);
-		Privilege orgUpdate = new Privilege("organization_update", false);
-		Privilege orgDelete = new Privilege("organization_delete", false);
+		
 		
 		Privilege userView = new Privilege("user_view", false);
 		Privilege userCreate = new Privilege("user_create", false);
@@ -65,71 +61,25 @@ public class DBSeeder implements CommandLineRunner {
 		
 		
 		Privilege dailyreportView = new Privilege("dailyreport_view", false);
-		Privilege dailyreportGenerate = new Privilege("dailyreport_generate", false);
-		Privilege dailyreportGenerateShiftwise = new Privilege("dailyreport_generate_shiftwise", false);
-		Privilege dailyreportExport = new Privilege("dailyreport_export", false);
 		
-		Privilege departmentView = new Privilege("department_view", false);
-		Privilege departmentCreate = new Privilege("department_create", false);
-		Privilege departmentUpdate = new Privilege("department_update", false);
-		Privilege departmentDelete = new Privilege("department_delete", false);
-		
-		Privilege designationView = new Privilege("designation_view", false);
-		Privilege designationCreate = new Privilege("designation_create", false);
-		Privilege designationUpdate = new Privilege("designation_update", false);
-		Privilege designationDelete = new Privilege("designation_delete", false);
-		
-		
-		Privilege deviceView = new Privilege("device_view", false);
-		Privilege deviceCreate = new Privilege("device_create", false);
-		Privilege deviceUpdate = new Privilege("device_update", false);
-		Privilege deviceDelete = new Privilege("device_delete", false);
 		
 		Privilege trasactionView = new Privilege("transaction_view", false);
-		Privilege monthlyReportView = new Privilege("monthlyattendance_view", false);
-		Privilege monthlyReportExport = new Privilege("monthlyattendance_export", false);
-		
-		
-		Privilege employeeView = new Privilege("employee_view", false);
-		Privilege employeeCreate = new Privilege("employee_create", false);
-		Privilege employeeUpdate = new Privilege("employee_update", false);
-		Privilege employeeDelete = new Privilege("employee_delete", false);
-		
-		Privilege employeeImport = new Privilege("employee_import", false);
-		Privilege employeeExport = new Privilege("employee_export", false);
 		
 		
 		
-		List<Privilege> privileges = Arrays.asList(dashboardView,
-				orgView, orgCreate, orgUpdate, orgDelete,
+		
+		
+		List<Privilege> privileges = Arrays.asList(
 				userView, userCreate, userUpdate, userDelete,
 				roleView, roleCreate, roleUpdate, roleDelete,
 				privilegeView,privilegeUpdate,privilegeDelete,
-				dailyreportView,dailyreportGenerate,dailyreportGenerateShiftwise,dailyreportExport,
-				departmentView,departmentCreate,departmentUpdate,departmentDelete,
-				designationView,designationCreate,designationUpdate,designationDelete,
-				deviceView,deviceCreate,deviceUpdate,deviceDelete,
-				 trasactionView,monthlyReportView,monthlyReportExport,
-				employeeView, employeeCreate, employeeUpdate, employeeDelete,employeeImport,employeeExport
+				dailyreportView,trasactionView
 				
 				);
 		privilegeRepository.saveAll(privileges);
 		
-		List<Privilege> adminPrivileges = Arrays.asList(
-				orgView, orgCreate, orgUpdate, orgDelete,
-				userView, userCreate, userUpdate, userDelete,
-				roleView, roleCreate, roleUpdate, roleDelete,
-				privilegeView,privilegeUpdate,privilegeDelete,
-				dailyreportView,dailyreportExport,
-				departmentView,departmentCreate,departmentUpdate,departmentDelete,
-				designationView,designationCreate,designationUpdate,designationDelete,
-				deviceView,deviceCreate,deviceUpdate,deviceDelete,
-				 trasactionView,
-				employeeView, employeeCreate, employeeUpdate, employeeDelete,employeeImport
-				
-				);
 		 
-		return adminPrivileges;
+		return privileges;
 	}
 
 	private Role seedRole(List<Privilege> privileges) {

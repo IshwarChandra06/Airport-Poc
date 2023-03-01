@@ -81,6 +81,16 @@ public class GeneralSpecificationUtil<T> {
 			return cb.between(root.<Date>get(field), startDate, endDate);
 		};
 	}
+	
+	
+	public Specification<T> dateCompareSpecification(Date startDate, String field) {
+		return (root, query, cb) -> {
+			if (null == startDate) {
+				return cb.conjunction();
+			}
+			return cb.lessThanOrEqualTo(root.<Date>get(field), startDate);
+		};
+	}
 
 	public Specification<T> longSpecification(Long value, String field) {
 		return (root, query, cb) -> {

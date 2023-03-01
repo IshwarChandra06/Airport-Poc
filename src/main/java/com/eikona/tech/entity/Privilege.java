@@ -11,9 +11,9 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.GenericGenerator;
 
-@Entity(name="et_privilege")
+@Entity(name="privilege")
 
-public class Privilege extends Auditable<String> implements Serializable{
+public class Privilege  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 

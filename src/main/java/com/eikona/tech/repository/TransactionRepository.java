@@ -5,39 +5,17 @@ import java.util.List;
 
 import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import com.eikona.tech.dto.TransactionDto;
 import com.eikona.tech.entity.Transaction;
 
+@Repository
 public interface TransactionRepository extends DataTablesRepository<Transaction, Long>{
 
-//	@Query("SELECT tr FROM com.eikona.tech.entity.Transaction as tr where tr.punchDate >=:sDate and tr.punchDate <=:eDate and tr.organization =:organization"
-//			+ " and tr.employeeCode is not null order by tr.punchDateStr asc, tr.punchTimeStr asc")
-//	List<Transaction> getTransactionData(Date sDate, Date eDate, String organization);
+	Transaction findByAppearanceId(String appearance_id);
 	
-	@Query("SELECT tr FROM com.eikona.tech.entity.Transaction as tr where tr.punchDate >=:sDate and tr.punchDate <=:eDate and tr.organization =:organization"
-			+ " and tr.empId is not null order by tr.punchDateStr asc, tr.punchTimeStr asc")
-	List<Transaction> getTransactionData(Date sDate, Date eDate, String organization);
-
-	List<Transaction> findByPunchDateStrAndOrganization(String currDate, String currOrg);
-
-	List<Transaction> findByPunchDateStrAndOrganizationIn(String currDate, List<String> orgList);
+	@Query("SELECT tr FROM com.eikona.tech.entity.Transaction as tr where tr.punchDate >=:sDate and tr.punchDate <=:eDate "
+			+ "and tr.poiId is not null order by tr.punchDateStr asc, tr.punchTimeStr asc")
+	List<Transaction> getTransactionDateCustom(Date sDate, Date eDate);
 	
-
-	Transaction findByEmployeeCodeAndEnrollStatus(String employeeCode, String enrollStatus);
-
-	@Query("SELECT new com.eikona.tech.dto.TransactionDto(tr.organization, count(distinct tr.empId)) FROM com.eikona.tech.entity.Transaction as tr "
-			+ "where tr.punchDateStr =:dateStr and tr.empId is not null GROUP BY tr.organization")
-	List<TransactionDto> findTransactionByPunchDateStrCustom(String dateStr);
-
-	@Query("SELECT  count(distinct tr.empId) FROM com.eikona.tech.entity.Transaction as tr "
-			+ "where tr.punchDateStr =:dateStr and tr.deviceName=:name and tr.empId is not null GROUP BY tr.organization")
-	Long findEventCountByDateAndDeviceCustom(String dateStr, String name);
-	
-	@Query("SELECT  count(tr.name) FROM com.eikona.tech.entity.Transaction as tr "
-			+ "where tr.punchDateStr =:dateStr and tr.deviceName=:name and tr.name='Unregistered' GROUP BY tr.organization")
-	Long findUnregisterCountByDateAndDeviceCustom(String dateStr, String name);
-
-	
-
 }

@@ -17,6 +17,14 @@ public class CalendarUtil {
 		
 		return calender.getTime();
 	}
+	
+	public Date getConvertedDate(Date date, int hr) {
+		Calendar calender = Calendar.getInstance();
+		calender.setTime(date);
+		calender.add(Calendar.HOUR, hr);
+		
+		return calender.getTime();
+	}
 	public Calendar getCalendar(Date date, int hr, int min, int sec) {
 		Calendar calender = Calendar.getInstance();
 		calender.setTime(date);
